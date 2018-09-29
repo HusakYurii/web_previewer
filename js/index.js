@@ -37,7 +37,7 @@
 			if(!selectors.forEach){ console.warn('"cacheElements" receives only an array object'); return;};
 			if(selectors.length === 0){console.warn('There are no arguments passed'); return;};
 			for(let i = 0; i < selectors.length; i++){
-				if(typeof selectors[i] !== 'string'){ throw new Error ('A value must be a type of string'); return;};
+				if(typeof selectors[i] !== 'string'){ console.warn('A value must be a type of string'); return;};
 			};
 
 			for(let selector = 0; selector < selectors.length; selector++){

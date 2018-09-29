@@ -198,6 +198,8 @@
 
 		let closeMenu = MNG.cached.closeMenu;
 			closeMenu.addEventListener('click', MNG.toggleSettingsBar);
+		let shader = MNG.cached.shader;
+			shader.addEventListener('click', MNG.toggleSettingsBar);
 	};
 
 	MNG.onWindowLoad = function () {

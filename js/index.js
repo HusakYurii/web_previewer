@@ -84,7 +84,8 @@
 	};
 
 	MNG.updatePhoneSize = function (config) {
-		if(window.innerWidth <= 360){return;};
+		//if(window.innerWidth <= 360){return;};
+		if(window.innerWidth <= 640){return;};
 
 		let w, h, isRotatable;
 

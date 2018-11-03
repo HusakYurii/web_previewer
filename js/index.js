@@ -3,10 +3,10 @@
 (function () {
 	const CONFIG = {
 		elementsToCache: ["header", "#updateIcon" , "#url", "#menu",
-							"#closeMenu", "main", ".shader", ".phone-wrapper",
-					  	   ".phone",".phone > iframe",
-					  		".dimentions #width", ".dimentions #height",
-					  		"#button" ],
+				  "#closeMenu", "main", ".shader", ".phone-wrapper",
+				  ".phone",".phone > iframe",
+				   ".dimentions #width", ".dimentions #height",
+				   "#button" ],
 
 		models: [{name:"Galaxy-S5", isRotatable:true, w:360 ,h:640},
 				{name:"Pixel-2", isRotatable:true, w:411 ,h:731},

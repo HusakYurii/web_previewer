@@ -142,22 +142,18 @@
 		if(!MNG.clickable){return;};
 
 		let { url, phoneIframe: iframe} = MNG.cached;
-		// let iframe = MNG.cached.phoneIframe;
-			iframe.src = url.value; //+ "?" + Math.random();
-			MNG.updatePhoneSize();
+		
+		iframe.src = url.value; //+ "?" + Math.random();
+		MNG.updatePhoneSize();
 	};
 
 	MNG.onRotateButtonClick = function () {
 		if(!MNG.clickable){return;};
 		if(!MNG.current.isRotatable){return;};
 
-		if(MNG.rotate){
-			MNG.rotate = false;
-		}else{
-			MNG.rotate = true;
-		};
-		
-		let phone = MNG.cached.phone;
+		MNG.rotate = !MNG.rotate;
+				
+		let { phone } = MNG.cached;
 		MNG.toggleClass(phone, "lanscape");
 
 		MNG.updatePhoneSize();
@@ -166,24 +162,24 @@
 
 	MNG.hangEventListeners = function () {
 		let liArr = document.getElementsByTagName('li');
+		for(let li of liArr){
+			li.addEventListener('click', MNG.onAnchorClick);
+		}
+		
+		const { updateIcon } = MNG.cached;
+		updateIcon.addEventListener('click', MNG.onUpdateIconClick);
 
-		for(let li = 0; li < liArr.length; li++){
-			liArr[li].addEventListener('click', MNG.onAnchorClick);
-		};
+		const { button } = MNG.cached;
+		button.addEventListener('click', MNG.onRotateButtonClick);
 
-		let updateIcon = MNG.cached.updateIcon;
-			updateIcon.addEventListener('click', MNG.onUpdateIconClick);
+		const { menu } = MNG.cached;
+		menu.addEventListener('click', MNG.toggleSettingsBar);
 
-		let button = MNG.cached.button;
-			button.addEventListener('click', MNG.onRotateButtonClick);
+		const { closeMenu } = MNG.cached;
+		closeMenu.addEventListener('click', MNG.toggleSettingsBar);
 
-		let menu = MNG.cached.menu;
-			menu.addEventListener('click', MNG.toggleSettingsBar);
-
-		let closeMenu = MNG.cached.closeMenu;
-			closeMenu.addEventListener('click', MNG.toggleSettingsBar);
-		let shader = MNG.cached.shader;
-			shader.addEventListener('click', MNG.toggleSettingsBar);
+		const { shader } = MNG.cached;
+		shader.addEventListener('click', MNG.toggleSettingsBar);
 	};
 
 	MNG.onWindowLoad = function () {

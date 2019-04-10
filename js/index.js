@@ -76,15 +76,16 @@
 		if(result === -1){
 			classList += ' '+ clas;
 		}else{
-			classList = classList.replace(clas,'').replace(' ','');
+			classList = classList.replace(clas,'').trim();
 		};
+
 		element.setAttribute('class', classList);
 	};
 
 	MNG.hasClass = function(element, clas) {
 		let classList = element.className;
 		let result = classList.indexOf(clas);
-		return (result === -1) ? false : true;
+		return (result === -1);
 	};
 
 	MNG.updatePhoneSize = function (config) {
@@ -129,17 +130,11 @@
 
 		event.preventDefault();
 
-		let anchor = this.querySelector('a'),
-			name = anchor.getAttribute('id'),
-			config;
-
-		for(let model = 0; model < CONFIG.models.length; model++){
-			if(CONFIG.models[model].name === name){
-				config = CONFIG.models[model];
-				break;
-			};
-		};
-
+		let anchor = this.querySelector('a');
+		let	name = anchor.getAttribute('id');
+			
+		const config = CONFIG.models.find((model) => model.name === name);
+	
 		MNG.updatePhoneSize(config);
 	};
 

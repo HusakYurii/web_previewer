@@ -102,35 +102,26 @@
 			({ w, h, isRotatable } = MNG.current);
 		};
 
-		let headerHeight = MNG.cached.header.clientHeight;
+		let { clientHeight: headerH } = MNG.cached.header;
+		let { innerHeight: windowH,  innerWidth: windowW } = window;
 
-		let minSize = Math.min( (window.innerHeight - headerHeight - window.innerHeight * 0.15), (window.innerWidth - 50) );
-		if(!isRotatable){minSize = window.innerWidth - window.innerWidth * 0.35;};
+		let minSize = Math.min( (windowH - headerH - windowH * 0.15), (windowW - 50) );
+		if(!isRotatable){ minSize = windowW - windowW * 0.35;};
 
-		let phoneIframe = MNG.cached.phoneIframe,
-			phone = MNG.cached.phone,
-			phoneWidth, 
-			phoneHeight;
+		let {phoneIframe, phone}  = MNG.cached;
 		
-		if(MNG.rotate && isRotatable){
-			phoneWidth = h;
-			phoneHeight = w;
-		}else{
-			phoneWidth = w;
-			phoneHeight = h;
-		};
+		let phoneWidth = (MNG.rotate && isRotatable) ? h : w;
+		let phoneHeight = (MNG.rotate && isRotatable) ? w: h;
 
 		let scl = Math.min(1,  minSize / phoneWidth , minSize / phoneHeight);
-			phoneIframe.style.width = phoneWidth + "px";
-			phoneIframe.style.height = phoneHeight + "px";
-			phone.style.transform = "scale(0,0)";
-			phone.style.transform = "scale(" + scl + "," + scl + ")";
+		phoneIframe.style.width = phoneWidth + "px";
+		phoneIframe.style.height = phoneHeight + "px";
+		phone.style.transform = "scale(0,0)";
+		phone.style.transform = "scale(" + scl + "," + scl + ")";
 
-		let inputW = MNG.cached.dimentionsWidth,
-			inputH = MNG.cached.dimentionsHeight;
-
-			inputW.value = phoneWidth;
-			inputH.value = phoneHeight;
+		let { dimentionsWidth: inputW, dimentionsHeight: inputH} = MNG.cached;
+		inputW.value = phoneWidth;
+		inputH.value = phoneHeight;
 	};
 
 	MNG.onAnchorClick = function (event) {

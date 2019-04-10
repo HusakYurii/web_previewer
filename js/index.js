@@ -34,30 +34,34 @@
 			return MNG.cached;
 		},
 		set: function (selectors) {
-			if(!selectors.forEach){ console.warn('"cacheElements" receives only an array object'); return;};
-			if(selectors.length === 0){console.warn('There are no arguments passed'); return;};
-			for(let i = 0; i < selectors.length; i++){
-				if(typeof selectors[i] !== 'string'){ console.warn('A value must be a type of string'); return;};
-			};
+			if(!Array.isArray(selectors)){ console.warn('"cacheElements" receives only an array object'); return; };
+			if(selectors.length === 0){ console.warn('There are no arguments passed'); return; };
+			
+			const res = selectors.some((selector) => typeof selector !== 'string');
+			if(res) { console.warn('A value must be a type of string'); return; }
 
-			for(let selector = 0; selector < selectors.length; selector++){
+			selectors.forEach(addToCache);
 
-				let matched = selectors[selector].match(/\w*/gi);
-				let	words = matched.filter((el)=> el !== '');
+			function addToCache(selector) {
+				const words = selector.match(/\w*/gi).filter((el)=> el !== '');
+				
+				const collection = [];
+				collection.push(words.shift());
 
-				let temp = [];
-					temp.push(words[0]);
+				if(words.length >= 1){
+					words.reduce((collect ,word) => {
+						collect.push(transform(word));
+						return collect;
+					}, collection);
+				}
 
-					if(words.length > 1){
-						for(let word = 1; word < words.length; word++){
-							let char = words[word].slice(0, 1).toUpperCase();
-							temp.push( words[word].replace(/./,char) );
-						};
-					};
+				MNG.cached[collection.join("")] = document.querySelector(selector);
+			}
 
-				let	elementName = temp.join('');
-					MNG.cached[elementName] = document.querySelector(selectors[selector]);
-			};
+			function transform(string) {
+				let char = string.slice(0, 1).toUpperCase();
+			 	return string.replace(/^\w/,char);
+			}
 		},
 		enumerable: false,
 		configurable: false

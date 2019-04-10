@@ -141,9 +141,9 @@
 	MNG.onUpdateIconClick = function () {
 		if(!MNG.clickable){return;};
 
-		let url = MNG.cached.url.value;
-		let iframe = MNG.cached.phoneIframe;
-			iframe.src = url; //+ "?" + Math.random();
+		let { url, phoneIframe: iframe} = MNG.cached;
+		// let iframe = MNG.cached.phoneIframe;
+			iframe.src = url.value; //+ "?" + Math.random();
 			MNG.updatePhoneSize();
 	};
 

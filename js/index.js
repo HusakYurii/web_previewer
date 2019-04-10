@@ -94,18 +94,12 @@
 		let w, h, isRotatable;
 
 		if(config){
-			w = config.w;
-			h = config.h;
-			isRotatable = config.isRotatable;
+			({ w, h, isRotatable } = config);
 			//save these parameters as current
-			MNG.current.w = w;
-			MNG.current.h = h;
-			MNG.current.isRotatable = isRotatable;
+			MNG.current = {w, h, isRotatable};
 		}else{
 			//if the resize occures the current parameters will be used
-			w = MNG.current.w;
-			h = MNG.current.h;
-			isRotatable = MNG.current.isRotatable;
+			({ w, h, isRotatable } = MNG.current);
 		};
 
 		let headerHeight = MNG.cached.header.clientHeight;
